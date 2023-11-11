@@ -6,31 +6,31 @@ import Spinner from '../components/Spinner'
 
 const ShowBook = () => {
     const [book, setBook] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const { id } = useParams();
-
+    `http://localhost:3000/api/book/${id}`
     useEffect(() => {
-        setLoading(true);
-        axios
-            .get(`http://localhost:3000/api/book/${id}`)
-            .then((response) => {
-                setBook(response.data.data);
-                // console.log(setBook(response.data.data));
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setLoading(false);
-            });
+        const getDetail = async () => {
+            try {
+                const detail = await axios.get(`http://localhost:3000/api/book/${id}`);
+                setBook(detail.data.data);
+                console.log(detail.data.title);
+                setLoading(false)
+            } catch (error) {
+                console.log('Error fetching data:', error);
+                setLoading(false)
+            }
+        }
+        getDetail();
     }, []);
     return (
-        <div className='p-4'>
+        <div className='p-4 '>
             <BackButton />
             <h1 className='text-3xl my-4'>Show Book</h1>
             {loading ? (
                 <Spinner />
             ) : (
-                <div className='flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4'>
+                <div className='flex flex-col border-2 border-sky-400 rounded-xl w-fit p-5 mx-auto'>
                     <div className='my-4'>
                         <span className='text-xl mr-4 text-gray-500 '>Id</span>
                         <span>{book._id}</span>
