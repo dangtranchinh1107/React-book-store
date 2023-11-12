@@ -14,7 +14,7 @@ const ShowBook = () => {
             try {
                 const detail = await axios.get(`http://localhost:3000/api/book/${id}`);
                 setBook(detail.data.data);
-                console.log(detail.data.title);
+                console.log(detail.data.data.title);
                 setLoading(false)
             } catch (error) {
                 console.log('Error fetching data:', error);
