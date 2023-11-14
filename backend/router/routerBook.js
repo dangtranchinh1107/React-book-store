@@ -3,6 +3,7 @@ import bookModel from '../models/bookModel.js';
 
 const routerBook = express.Router();
 
+// tạo mới
 routerBook.post('/createbook', async (req, res) => {
     try {
         const body = req.body;
@@ -18,7 +19,7 @@ routerBook.post('/createbook', async (req, res) => {
         res.status(500).send({ message: error.message })
     }
 })
-
+// lấy danh sách
 routerBook.get('/listbook', async (req, res) => {
     try {
         const listBook = await bookModel.find({});
@@ -30,7 +31,7 @@ routerBook.get('/listbook', async (req, res) => {
         res.status(500).send({ message: error.message })
     }
 })
-
+// lấy sản phẩm
 routerBook.get('/book/:id', async (req, res) => {
     try {
         const id = req.params.id;
@@ -45,7 +46,7 @@ routerBook.get('/book/:id', async (req, res) => {
         res.status(500).send({ message: error.message })
     }
 })
-
+// update sản phẩm
 routerBook.put('/updatebook/:id', async (req, res) => {
     try {
         const body = req.body;
@@ -68,8 +69,7 @@ routerBook.put('/updatebook/:id', async (req, res) => {
         res.status(500).send({ message: error.message })
     }
 })
-
-
+// xóa sản phẩm
 routerBook.delete('/deletebook/:id', async (req, res) => {
     try {
         const id = req.params.id;
